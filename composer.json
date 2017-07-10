@@ -1,0 +1,23 @@
+{
+  "name": "bogdanmelinte/trip_sorter",
+  "description": "Sort boarding card objects",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Bogdan Melinte",
+      "email": "bogdan.melinte@hotmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "TripSorter\\": "src/TripSorter"
+    }
+  },
+  "require": {
+    "php": ">=7"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "6.2.3"
+  }
+}

@@ -9,6 +9,9 @@ namespace TripSorter\BoardingCards;
 class AirplaneBoardingCard extends AbstractBoardingCard
 {
     /** @var  string */
+    private $seatNumber;
+
+    /** @var  string */
     private $flightNumber;
 
     /** @var  string */
@@ -16,6 +19,46 @@ class AirplaneBoardingCard extends AbstractBoardingCard
 
     /** @var  string|null */
     private $baggageCounter;
+
+    /**
+     * AirplaneBoardingCard constructor.
+     * @param string $origin
+     * @param string $destination
+     * @param string $seatNumber
+     * @param string $flightNumber
+     * @param string $departureGate
+     * @param string $baggageCounter
+     */
+    public function __construct(string $origin, string $destination, string $seatNumber, string $flightNumber,
+                                string $departureGate, string $baggageCounter = null)
+    {
+        parent::__construct($origin, $destination);
+
+        $this->seatNumber = $seatNumber;
+        $this->flightNumber = $flightNumber;
+        $this->departureGate = $departureGate;
+        $this->baggageCounter = $baggageCounter;
+    }
+
+    /**
+     * Get seat number
+     *
+     * @return string
+     */
+    public function getSeatNumber(): string
+    {
+        return $this->seatNumber;
+    }
+
+    /**
+     * Set seat number
+     *
+     * @param string $seatNumber
+     */
+    public function setSeatNumber(string $seatNumber)
+    {
+        $this->seatNumber = $seatNumber;
+    }
 
     /**
      * @return string
@@ -27,12 +70,10 @@ class AirplaneBoardingCard extends AbstractBoardingCard
 
     /**
      * @param string $flightNumber
-     * @return AirplaneBoardingCard
      */
-    public function setFlightNumber(string $flightNumber): AirplaneBoardingCard
+    public function setFlightNumber(string $flightNumber)
     {
         $this->flightNumber = $flightNumber;
-        return $this;
     }
 
     /**
@@ -45,12 +86,10 @@ class AirplaneBoardingCard extends AbstractBoardingCard
 
     /**
      * @param string $departureGate
-     * @return AirplaneBoardingCard
      */
-    public function setDepartureGate(string $departureGate): AirplaneBoardingCard
+    public function setDepartureGate(string $departureGate)
     {
         $this->departureGate = $departureGate;
-        return $this;
     }
 
     /**
@@ -63,43 +102,10 @@ class AirplaneBoardingCard extends AbstractBoardingCard
 
     /**
      * @param null|string $baggageCounter
-     * @return AirplaneBoardingCard
      */
-    public function setBaggageCounter(string $baggageCounter): AirplaneBoardingCard
+    public function setBaggageCounter(string $baggageCounter)
     {
         $this->baggageCounter = $baggageCounter;
-        return $this;
-    }
-
-    /**
-     * Hydrate array to object
-     *
-     * @param array $array
-     * @return void
-     */
-    public function hydrate(array $array)
-    {
-        $this->origin = $array['origin'];
-        $this->destination = $array['destination'];
-        $this->flightNumber = $array['flight_number'];
-        $this->departureGate = $array['departure_gate'];
-        $this->seatNumber = $array['seat_number'];
-    }
-
-    /**
-     * Extract array from object
-     *
-     * @return array
-     */
-    public function extract(): array
-    {
-        return [
-            'origin' => $this->origin,
-            'destination' => $this->destination,
-            'flight_number' => $this->flightNumber,
-            'departure_gate' => $this->departureGate,
-            'seat_number' => $this->seatNumber
-        ];
     }
 
     /**
@@ -107,14 +113,14 @@ class AirplaneBoardingCard extends AbstractBoardingCard
      *
      * @return string
      */
-    function __toString(): string
+    public function __toString(): string
     {
         $baggageInformation = $this->getBaggageCounter()
             ? sprintf('Baggage drop at ticket counter %s.', $this->getBaggageCounter())
             : 'Baggage will we automatically transferred from your last leg.';
 
         return sprintf(
-            'From %s, take flight %s to %s. Gate %s, seat %s. $s',
+            'From %s, take flight %s to %s. Gate %s, seat %s. %s',
             $this->getOrigin(),
             $this->getFlightNumber(),
             $this->getDestination(),

@@ -9,7 +9,45 @@ namespace TripSorter\BoardingCards;
 class TrainBoardingCard extends AbstractBoardingCard
 {
     /** @var  string */
+    private $seatNumber;
+
+    /** @var  string */
     private $trainNumber;
+
+    /**
+     * TrainBoardingCard constructor.
+     * @param string $origin
+     * @param string $destination
+     * @param string $seatNumber
+     * @param string $trainNumber
+     */
+    public function __construct(string $origin, string $destination, string $seatNumber, string $trainNumber)
+    {
+        parent::__construct($origin, $destination);
+
+        $this->seatNumber = $seatNumber;
+        $this->trainNumber = $trainNumber;
+    }
+
+    /**
+     * Get seat number
+     *
+     * @return string
+     */
+    public function getSeatNumber(): string
+    {
+        return $this->seatNumber;
+    }
+
+    /**
+     * Set seat number
+     *
+     * @param string $seatNumber
+     */
+    public function setSeatNumber(string $seatNumber)
+    {
+        $this->seatNumber = $seatNumber;
+    }
 
     /**
      * @return string
@@ -20,32 +58,11 @@ class TrainBoardingCard extends AbstractBoardingCard
     }
 
     /**
-     * Hydrate array to object
-     *
-     * @param array $array
-     * @return void
+     * @param string $trainNumber
      */
-    public function hydrate(array $array)
+    public function setTrainNumber(string $trainNumber)
     {
-        $this->origin = $array['origin'];
-        $this->destination = $array['destination'];
-        $this->trainNumber = $array['train_number'];
-        $this->seatNumber = $array['seat_number'];
-    }
-
-    /**
-     * Extract array from object
-     *
-     * @return array
-     */
-    public function extract(): array
-    {
-        return [
-            'origin' => $this->origin,
-            'destination' => $this->destination,
-            'train_number' => $this->trainNumber,
-            'seat_number' => $this->seatNumber
-        ];
+        $this->trainNumber = $trainNumber;
     }
 
     /**
@@ -60,7 +77,7 @@ class TrainBoardingCard extends AbstractBoardingCard
             : 'No seat assignment.';
 
         return sprintf(
-            'Take train $s from $s to %s. $s',
+            'Take train %s from %s to %s. %s',
             $this->getTrainNumber(),
             $this->getOrigin(),
             $this->getDestination(),

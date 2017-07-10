@@ -8,31 +8,40 @@ namespace TripSorter\BoardingCards;
  */
 class AirportBusBoardingCard extends AbstractBoardingCard
 {
+    /** @var string */
+    private $seatNumber;
+
     /**
-     * Hydrate array to object
-     *
-     * @param array $array
-     * @return void
+     * AirportBusBoardingCard constructor.
+     * @param string $origin
+     * @param string $destination
+     * @param string $seatNumber
      */
-    public function hydrate(array $array)
+    public function __construct(string $origin, string $destination, string $seatNumber = null)
     {
-        $this->origin = $array['origin'];
-        $this->destination = $array['destination'];
-        $this->seatNumber = $array['seat_number'];
+        parent::__construct($origin, $destination);
+
+        $this->seatNumber = $seatNumber;
     }
 
     /**
-     * Extract array from object
+     * Get seat number
      *
-     * @return array
+     * @return string|null
      */
-    public function extract(): array
+    public function getSeatNumber()
     {
-        return [
-            'origin' => $this->origin,
-            'destination' => $this->destination,
-            'seat_number' => $this->seatNumber
-        ];
+        return $this->seatNumber;
+    }
+
+    /**
+     * Set seat number
+     *
+     * @param string $seatNumber
+     */
+    public function setSeatNumber(string $seatNumber)
+    {
+        $this->seatNumber = $seatNumber;
     }
 
     /**
@@ -47,7 +56,7 @@ class AirportBusBoardingCard extends AbstractBoardingCard
             : 'No seat assignment.';
 
         return sprintf(
-            'Take the airport bus from $s to $s. $s',
+            'Take the airport bus from %s to %s. %s',
             $this->getOrigin(),
             $this->getDestination(),
             $seatInformation

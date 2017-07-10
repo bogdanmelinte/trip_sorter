@@ -3,6 +3,10 @@
 namespace TripSorter\BoardingCards;
 
 
+/**
+ * Class AbstractBoardingCard
+ * @package TripSorter\BoardingCards
+ */
 abstract class AbstractBoardingCard
 {
     /** @var  string */
@@ -11,30 +15,23 @@ abstract class AbstractBoardingCard
     /** @var  string */
     protected $destination;
 
-    /** @var  string */
-    protected $seatNumber;
-
-    /**
-     * Hydrate array to object
-     *
-     * @param array $array
-     * @return void
-     */
-    abstract public function hydrate(array $array);
-
-    /**
-     * Extract array from object
-     *
-     * @return array
-     */
-    abstract public function extract(): array;
-
     /**
      * Output boarding card
      *
      * @return string
      */
     abstract public function __toString(): string;
+
+    /**
+     * AbstractBoardingCard constructor.
+     * @param string $origin
+     * @param string $destination
+     */
+    public function __construct(string $origin, string $destination)
+    {
+        $this->origin = $origin;
+        $this->destination = $destination;
+    }
 
     /**
      * @return string
@@ -46,12 +43,10 @@ abstract class AbstractBoardingCard
 
     /**
      * @param string $origin
-     * @return AbstractBoardingCard
      */
-    public function setOrigin(string $origin): AbstractBoardingCard
+    public function setOrigin(string $origin)
     {
         $this->origin = $origin;
-        return $this;
     }
 
     /**
@@ -64,29 +59,9 @@ abstract class AbstractBoardingCard
 
     /**
      * @param string $destination
-     * @return AbstractBoardingCard
      */
-    public function setDestination(string $destination): AbstractBoardingCard
+    public function setDestination(string $destination)
     {
         $this->destination = $destination;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSeatNumber(): string
-    {
-        return $this->seatNumber;
-    }
-
-    /**
-     * @param string $seatNumber
-     * @return AbstractBoardingCard
-     */
-    public function setSeatNumber(string $seatNumber): AbstractBoardingCard
-    {
-        $this->seatNumber = $seatNumber;
-        return $this;
     }
 }

@@ -1,0 +1,5 @@
+<phpunit bootstrap="vendor/autoload.php">
+    <testsuite name="Trip Sorter Test Suite">
+        <directory>tests</directory>
+    </testsuite>
+</phpunit>
